@@ -166,8 +166,6 @@ H_PAST = 30   # History frames for trajectory model
 H_FUT = 45    # Future frames to predict
 ```
 
----
-
 ## Performance Profiling
 
 The integrated latency tracer logs execution time for each module:
@@ -187,8 +185,6 @@ Logs include:
 - GPU synchronization markers
 - Per-frame metadata
 
----
-
 ## Risk Transition Analysis
 
 The system automatically detects and records yellow-to-red risk zone transitions:
@@ -201,10 +197,6 @@ The system automatically detects and records yellow-to-red risk zone transitions
 - `scene_020_risk_transition.csv` - Summary of each transition event
 - `scene_020_risk_transition_series.csv` - Frame-by-frame data during transitions
 - `risk_transition_summary.json` - Cross-scene aggregation
-
----
-
----
 
 ## Dataset Access
 
@@ -221,8 +213,6 @@ Once approved, the dataset can be organized following the same structure assumed
 > **Note:**  
 > The provided code and pretrained models are fully operational once SHRP2 access is granted,  
 > but this repository does **not include any SHRP2-derived videos or annotations**.
-
----
 
 
 ## Example Output
@@ -245,8 +235,6 @@ Once approved, the dataset can be organized following the same structure assumed
 ```
 [INFO] Transition time stats: n=8 mean=234.5ms median=220.0ms min=180.0ms max=310.0ms
 ```
-
----
 
 ## Troubleshooting
 
@@ -272,7 +260,6 @@ Once approved, the dataset can be organized following the same structure assumed
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
----
 
 ## Acknowledgments
 
