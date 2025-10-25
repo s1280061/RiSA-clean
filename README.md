@@ -289,6 +289,4 @@ For questions or collaborations:
 - Email: asai.kaito@arakawa-lab.com
 - GitHub Issues: [Create an issue](https://github.com/s1280061/RiSA-clean/issues)
 
----
-
 **Note**: This is a research prototype. Use at your own risk in real-world applications.
