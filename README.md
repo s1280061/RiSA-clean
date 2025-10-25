@@ -1,11 +1,11 @@
-# 🚗 RiSA: Risk-aware Situational Assistant
+# RiSA: Risk-aware Situational Assistant
 
 RiSA is an open and reproducible research framework for interpretable safety reasoning in naturalistic driving scenarios.  
 It integrates environment perception, trajectory forecasting, and multimodal reasoning modules to assist drivers with context-aware safety advice.
 
 ---
 
-## 🎞️ Demo
+## Demo
 
 Below is a short demonstration of the RiSA system in action:
 
@@ -15,7 +15,7 @@ Below is a short demonstration of the RiSA system in action:
 
 ---
 
-## ✨ Features
+## Features
 
 - **Multi-stage Environment Recognition**: Scene understanding with LLaVA-based visual reasoning
 - **Vehicle Detection & Tracking**: YOLOv8 + ByteTrack for robust multi-object tracking
@@ -27,7 +27,7 @@ Below is a short demonstration of the RiSA system in action:
 
 ---
 
-## 🏗️ System Architecture
+## System Architecture
 
 The overall architecture of **RiSA (Risk-aware Situational Assistant)** is illustrated below:
 
@@ -41,7 +41,7 @@ This diagram shows the multi-stage pipeline of RiSA, including:
 5. **Visualization** – BEV risk-zone rendering and latency profiling
 
 
-## ⚙️ Setup
+## Setup
 
 ### 1. Clone the repository
 
@@ -75,7 +75,7 @@ Place the following pre-trained models in the appropriate directories:
 
 ---
 
-## 🚀 Usage
+## Usage
 
 ### Basic Execution
 
@@ -101,7 +101,7 @@ The script generates the following outputs:
 
 ---
 
-## 📊 Data Format
+## Data Format
 
 ### Input CSV Format
 
@@ -168,7 +168,7 @@ H_FUT = 45    # Future frames to predict
 
 ---
 
-## 📈 Performance Profiling
+## Performance Profiling
 
 The integrated latency tracer logs execution time for each module:
 
@@ -189,7 +189,7 @@ Logs include:
 
 ---
 
-## 🧪 Risk Transition Analysis
+## Risk Transition Analysis
 
 The system automatically detects and records yellow-to-red risk zone transitions:
 
@@ -204,7 +204,7 @@ The system automatically detects and records yellow-to-red risk zone transitions
 
 ---
 
-## 📝 Example Output
+## Example Output
 
 ### Console Log
 ```
@@ -227,7 +227,7 @@ The system automatically detects and records yellow-to-red risk zone transitions
 
 ---
 
-## 🛠️ Troubleshooting
+## Troubleshooting
 
 ### CUDA Out of Memory
 - Reduce batch size or frame resolution
@@ -248,7 +248,7 @@ The system automatically detects and records yellow-to-red risk zone transitions
 
 ---
 
-## 📄 Citation
+## Citation
 
 If you use RiSA in your research, please cite:
 
@@ -263,13 +263,13 @@ If you use RiSA in your research, please cite:
 
 ---
 
-## 📜 License
+## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ---
 
-## 🙏 Acknowledgments
+## Acknowledgments
 
 - **YOLOv8**: [Ultralytics](https://github.com/ultralytics/ultralytics)
 - **ByteTrack**: [ByteTrack Repository](https://github.com/ifzhang/ByteTrack)
@@ -278,18 +278,10 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ---
 
-## 🔗 Related Work
-
-- [Paper Link] - Full technical details
-- [Dataset] - SHRP2 naturalistic driving data
-- [Demo Video] - Extended demonstration
-
----
-
-## 📧 Contact
+## Contact
 
 For questions or collaborations:
-- Email: s1280061@example.edu
+- Email: asai.kaito@arakawa-lab.com
 - GitHub Issues: [Create an issue](https://github.com/s1280061/RiSA-clean/issues)
 
 ---

@@ -10,14 +10,14 @@ import cv2
 import numpy as np
 import pandas as pd
 import torch
-from collections import defaultdict, deque
+from collections import deque
 from ultralytics import YOLO
 from yolox.tracker.byte_tracker import BYTETracker
 from PIL import ImageFont, ImageDraw, Image
 from train_traj_seq2seq_px_rel import Seq2Seq
 import argparse
-from risk_assessment_api_xx1 import assess_risk_from_image_with_context
-from stage1_env import assess_environment_stage1_from_frame
+from src.perception.stage1_env import assess_environment_stage1_from_frame
+from src.perception.risk_assessment_api_xx1 import assess_risk_from_image_with_context
 
 # ========== レイテンシ計測の初期化 ==========
 from latency_tracer import LatencyTracer
@@ -188,9 +188,9 @@ video_path = os.path.join(SAMPLE_DIR, "demo_scene.mp4")
 csv_path   = os.path.join(SAMPLE_DIR, "demo_scene.csv")
 font_path  = os.path.join(BASE_DIR, "src", "fonts", "RobotoMono-Regular.ttf")
 
-turn_model_path  = os.path.join(BASE_DIR, "src", "weights", "turn_cls_best.pt")
-brake_model_path = os.path.join(BASE_DIR, "src", "weights", "brake_go_best.pt")
-
+turn_model_path  = os.path.join(BASE_DIR, "models", "turn_model.pt")
+brake_model_path = os.path.join(BASE_DIR, "models", "brake_model.pt")
+traj_model_path  = os.path.join(BASE_DIR, "models", "best_ade_px.pt")
 # ---- Notes ----
 # The sample video and CSV are lightweight demo examples.
 # For reproducibility, replace these paths with your own dataset if needed.

@@ -11,14 +11,6 @@ venv/
 
 # --- Logs and outputs ---
 *.log
-*.csv
-*.json
-*.mp4
-*.avi
-*.gif
-*.png
-*.jpg
-*.jpeg
 *.zip
 output/
 runs/
