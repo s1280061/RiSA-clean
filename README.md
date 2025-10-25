@@ -29,17 +29,17 @@ Below is a short demonstration of the RiSA system in action:
 
 ## 🏗️ System Architecture
 
-```
-Input Video → YOLOv8 Detection → ByteTrack → Trajectory Prediction
-                                      ↓
-                              Intent Classification (Turn/Brake)
-                                      ↓
-                              LLaVA Risk Assessment
-                                      ↓
-                              BEV Visualization → Output Video
-```
+The overall architecture of **RiSA (Risk-aware Situational Assistant)** is illustrated below:
 
----
+![RiSA Architecture](./assets/RiSA-02_architecture_v2.drawio.png)
+
+This diagram shows the multi-stage pipeline of RiSA, including:
+1. **Perception** – YOLOv8-based detection and ByteTrack tracking  
+2. **Trajectory Prediction** – GRU/Seq2Seq forecasting of future motion  
+3. **Intent Classification** – Turn and brake signal recognition  
+4. **Multimodal Reasoning** – LLaVA-based risk assessment  
+5. **Visualization** – BEV risk-zone rendering and latency profiling
+
 
 ## ⚙️ Setup
 
