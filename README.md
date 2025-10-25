@@ -281,8 +281,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - **LLaVA**: [LLaVA Model](https://github.com/haotian-liu/LLaVA)
 - **SHRP2 Dataset**: [SHRP2 NDS](https://insight.shrp2nds.us/)
 
----
-
 ## Contact
 
 For questions or collaborations:
