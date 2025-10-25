@@ -204,6 +204,27 @@ The system automatically detects and records yellow-to-red risk zone transitions
 
 ---
 
+---
+
+## Dataset Access
+
+RiSA was developed and evaluated using the **SHRP2 Naturalistic Driving Study (NDS)** dataset.  
+This dataset contains privacy-sensitive, real-world driving videos and sensor data collected under restricted research agreements.
+
+As such, **the raw SHRP2 data cannot be publicly distributed** due to confidentiality and usage restrictions.
+
+Researchers who wish to reproduce our experiments can apply for access through the official portal:  
+🔗 [SHRP2 NDS Data Access Portal](https://insight.shrp2nds.us/)
+
+Once approved, the dataset can be organized following the same structure assumed by our scripts (e.g., `scene_000.mp4`, `csv_divided/scene_000.csv`).
+
+> **Note:**  
+> The provided code and pretrained models are fully operational once SHRP2 access is granted,  
+> but this repository does **not include any SHRP2-derived videos or annotations**.
+
+---
+
+
 ## Example Output
 
 ### Console Log
