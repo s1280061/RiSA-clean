@@ -246,22 +246,6 @@ The system automatically detects and records yellow-to-red risk zone transitions
 ```
 → Verify CSV has a `Frame` column starting from the correct index
 
----
-
-## Citation
-
-If you use RiSA in your research, please cite:
-
-```bibtex
-@article{risa2025,
-  title={RiSA: Risk-aware Situational Assistant for Naturalistic Driving},
-  author={Your Name},
-  journal={arXiv preprint arXiv:XXXX.XXXXX},
-  year={2025}
-}
-```
-
----
 
 ## License
 
