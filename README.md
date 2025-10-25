@@ -3,8 +3,6 @@
 RiSA is an open and reproducible research framework for interpretable safety reasoning in naturalistic driving scenarios.  
 It integrates environment perception, trajectory forecasting, and multimodal reasoning modules to assist drivers with context-aware safety advice.
 
----
-
 ## Demo
 
 Below is a short demonstration of the RiSA system in action:
@@ -12,8 +10,6 @@ Below is a short demonstration of the RiSA system in action:
 ![RiSA Demo](assets/output_4panel_3s.gif)
 
 *(The above GIF shows the system's four-panel visualization of driving risk zones, vehicle intentions, and predicted trajectories.)*
-
----
 
 ## Features
 
@@ -25,7 +21,6 @@ Below is a short demonstration of the RiSA system in action:
 - **Latency Profiling**: Built-in performance measurement for each processing module
 - **Risk Assessment**: Real-time yellow-to-red zone transition detection
 
----
 
 ## System Architecture
 
@@ -99,8 +94,6 @@ The script generates the following outputs:
 5. **Latency Logs**: `scene_020_latency.csv` and `.jsonl` - Performance profiling
 6. **Risk Transition Data**: `scene_020_risk_transition.csv` - Yellow-to-red zone events
 
----
-
 ## Data Format
 
 ### Input CSV Format
@@ -135,7 +128,6 @@ Contains per-frame tracking information:
 | `risk_zone` | Current risk flag (LLaVA assessment) |
 | `risk_zone_predicted` | Predicted risk based on trajectory |
 
----
 
 ## 🔧 Configuration
 
