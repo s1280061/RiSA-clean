@@ -1,0 +1,33 @@
+# --- Python build and cache ---
+__pycache__/
+*.pyc
+*.pyo
+
+# --- IDE and venv ---
+.idea/
+.vscode/
+.venv/
+venv/
+
+# --- Logs and outputs ---
+*.log
+*.csv
+*.json
+*.mp4
+*.avi
+*.gif
+*.png
+*.jpg
+*.jpeg
+*.zip
+output/
+runs/
+data/
+
+# --- Checkpoints and weights ---
+*.pt
+*.pth
+
+# --- System files ---
+.DS_Store
+Thumbs.db
