@@ -254,7 +254,8 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## Citation
 
-If you use RiSA in your research, please cite our paper:
+If you find our study useful, please consider citing:
+
 
 ```bibtex
 @inproceedings{asai2025risa,
