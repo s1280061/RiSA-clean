@@ -252,6 +252,19 @@ Once approved, the dataset can be organized following the same structure assumed
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
+## Citation
+
+If you use RiSA in your research, please cite our paper:
+
+```bibtex
+@inproceedings{asai2025risa,
+  title     = {RiSA: Risk-aware Situational Assistant: From Risk Forecasting to Actionable Driver Advice},
+  author    = {Kaito Asai and Bin Zhou and Jianyu Huang and Yutaka Arakawa and Tsunenori Mine},
+  booktitle = {Proceedings of the IEEE International Conference on Big Data (IEEE BigData)},
+  year      = {2025},
+  note      = {Accepted (to appear)},
+}
+```
 
 ## Acknowledgments
 
