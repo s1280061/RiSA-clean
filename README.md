@@ -1,7 +1,10 @@
 # RiSA: Risk-aware Situational Assistant
 
+RiSA (Risk-aware Situation Assessment) is a research prototype aiming to integrate
+object detection, tracking, and risk prediction for driving assistance AI.
 RiSA is an open and reproducible research framework for interpretable safety reasoning in naturalistic driving scenarios.  
 It integrates environment perception, trajectory forecasting, and multimodal reasoning modules to assist drivers with context-aware safety advice.
+
 
 ## Demo
 
