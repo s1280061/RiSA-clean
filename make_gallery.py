@@ -262,15 +262,14 @@ def get_css() -> str:
     }
 
     .section {
-      margin-top: 8px;
-      padding-top: 6px;
-      border-top: 1px solid #1f2a44;
+      margin-top: 6px;
+      padding-top: 0px;
     }
 
     h3 {
       font-size:13px;
       color:#93c5fd;
-      margin:0 0 4px;
+      margin:0 0 3px;
     }
 
     .text {
