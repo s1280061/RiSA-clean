@@ -72,14 +72,9 @@ pip install torch torchvision torchaudio --index-url https://download.pytorch.or
 pip install -r requirements.txt
 ```
 
-### 5. Download model weights
+### 5. Prepare model weights
 
-Place the following pre-trained models in the appropriate directories:
-
-- **YOLOv8 Detection Model**: `26x/best.pt`
-- **Seq2Seq Trajectory Model**: `26x/traj_seq2seq_best.pt`
-- **Turn Signal Classifier**: `runs/classify/turn_cls_with_noise_yolov8m3/weights/best.pt`
-- **Brake Light Classifier**: `runs/classify/go_brake_with_noise_v3_f4/weights/best.pt`
+This repository does not include pre-trained model weights. You will need to train your own models or prepare compatible weights.
 
 ## Usage
 
