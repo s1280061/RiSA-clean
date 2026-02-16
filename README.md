@@ -76,17 +76,16 @@ pip install -r requirements.txt
 
 This repository does not include pretrained model weights due to size constraints.
 
-Please prepare or download compatible checkpoints and place them under the following structure:
-
+Please prepare or download compatible checkpoints and place them in the following structure:
+```
 models/
- ├ yolo/best.pt                  # YOLOv8 detector
- ├ traj/traj_seq2seq_best.pt    # Trajectory predictor
- ├ turn/best.pt                 # Turn signal classifier
- └ brake/best.pt                # Brake light classifier
+├── yolo/best.pt                # YOLOv8 detector
+├── traj/traj_seq2seq_best.pt  # Trajectory predictor
+├── turn/best.pt                # Turn signal classifier
+└── brake/best.pt               # Brake light classifier
+```
 
-You may train these models using the provided scripts, or substitute your own models,
-as long as the paths are updated accordingly in `integrated_script_natural.py`.
-
+You may train these models using the provided scripts or substitute your own models, as long as the paths are updated accordingly in `integrated_script_natural.py`.
 ## Usage
 
 ### Basic Execution
