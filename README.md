@@ -61,13 +61,18 @@ venv\Scripts\activate    # Windows
 # source venv/bin/activate  # Linux/macOS
 ```
 
-### 3. Install dependencies
+### 3. Install PyTorch (GPU)
+```bash
+# CUDA 12.1 example
+pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121
+```
 
+### 4. Install remaining dependencies
 ```bash
 pip install -r requirements.txt
 ```
 
-### 4. Download model weights
+### 5. Download model weights
 
 Place the following pre-trained models in the appropriate directories:
 
@@ -75,8 +80,6 @@ Place the following pre-trained models in the appropriate directories:
 - **Seq2Seq Trajectory Model**: `26x/traj_seq2seq_best.pt`
 - **Turn Signal Classifier**: `runs/classify/turn_cls_with_noise_yolov8m3/weights/best.pt`
 - **Brake Light Classifier**: `runs/classify/go_brake_with_noise_v3_f4/weights/best.pt`
-
----
 
 ## Usage
 
