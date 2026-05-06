@@ -1,0 +1,33 @@
+﻿version: "3.9"
+
+services:
+  risa:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: risa-clean:latest
+    container_name: risa_app
+
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+
+    environment:
+      - NVIDIA_VISIBLE_DEVICES=all
+      - NVIDIA_DRIVER_CAPABILITIES=compute,utility
+      - CUDA_VISIBLE_DEVICES=0
+
+    volumes:
+      - D:/SHRP2rawdata:/data
+      - C:/Users/s1280/Desktop/RISA_raw_data:/rawdata
+      - ./outputs:/app/outputs
+      - ./models:/app/models
+
+    stdin_open: true
+    tty: true
+
+    command: python run_demo.py --help

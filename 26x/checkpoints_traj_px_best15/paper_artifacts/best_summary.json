@@ -1,0 +1,22 @@
+{
+  "best_epoch": 25,
+  "best_val_ADE_px": 5.061317911220871,
+  "best_val_FDE_px": 10.647595275995386,
+  "config": {
+    "train_csv": "C:\\Users\\s1280\\Desktop\\trajectory_data\\traj_dataset_p30_f45_s5_px_with_ego_speed_train.csv",
+    "val_csv": "C:\\Users\\s1280\\Desktop\\trajectory_data\\traj_dataset_p30_f45_s5_px_with_ego_speed_val.csv",
+    "epochs": 25,
+    "batch": 128,
+    "lr": 0.0011343582910511758,
+    "wd": 2.571461359876629e-06,
+    "hidden": 192,
+    "layers": 2,
+    "dropout": 0.12687839643883927,
+    "h_past": 30,
+    "h_fut": 45,
+    "tf_start": 0.626337163630613,
+    "tf_end": 0.08255813457084756,
+    "beta": 0.03074052147039913,
+    "save_dir": "./checkpoints_traj_px_best15"
+  }
+}

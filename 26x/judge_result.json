@@ -1,0 +1,13 @@
+{
+  "situation_accuracy": 4,
+  "advice_appropriateness": 4,
+  "safety_risk_calibration": 4,
+  "overall": 4.0,
+  "comment": "RiSAは速度・交通状況・車両数の点で概ね状況認識と安全提案が適切。複数フレームで右車線変更を予測し decelerate を推奨する一方、8735 などで turn signal の解釈と keep_speed の組み合わせに若干の矛盾が見られる。全体として安全性の調整は妥当。",
+  "token_usage": {
+    "prompt_tokens": 3904,
+    "completion_tokens": 2143,
+    "total_tokens": 6047,
+    "cost_usd": 0.001871
+  }
+}

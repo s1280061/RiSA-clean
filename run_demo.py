@@ -183,10 +183,10 @@ pending_series_tids = set()
 # ---- パス設定（デフォルト）----
 video_path        = r"C:\Users\s1280\Desktop\SHRP2rawdata\5\new_divided\scene_020.mp4"
 csv_path          = r"C:\Users\s1280\Desktop\SHRP2rawdata\5\csv_divided\scene_020.csv"
-base_path         = r"C:\Users\s1280\PycharmProjects\yolo_classify_project\26x"
-font_path         = r"C:\Users\s1280\PycharmProjects\yolo_classify_project\26x\fonts\RobotoMono-Regular.ttf"
-turn_model_path   = r"C:\Users\s1280\PycharmProjects\yolo_classify_project\runs\classify\turn_cls_with_noise_yolov8m3\weights\best.pt"
-brake_model_path  = r"C:\Users\s1280\PycharmProjects\yolo_classify_project\runs\classify\go_brake_with_noise_v3_f4\weights\best.pt"
+base_path         = "/app/26x"
+font_path         = "/app/26x/fonts/RobotoMono-Regular.ttf"
+turn_model_path   = r"/app/models/classify/turn_best.pt"
+brake_model_path  = r"/app/models/classify/brake_best.pt"
 
 parser = argparse.ArgumentParser()
 parser.add_argument("--video", type=str, help="path to scene_###.mp4")
@@ -283,7 +283,7 @@ turn_model  = YOLO(turn_model_path).to(cls_device)
 brake_model = YOLO(brake_model_path).to(cls_device)
 
 # ========================== 予測モデル ==========================
-traj_ckpt_path = r"C:\Users\s1280\PycharmProjects\yolo_classify_project\26x\checkpoints_traj_px_best15\best_ade_px.pt"
+traj_ckpt_path = "/app/26x/checkpoints_traj_px_best15/best_ade_px.pt"
 traj_device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 ckpt = torch.load(traj_ckpt_path, map_location=traj_device)
 

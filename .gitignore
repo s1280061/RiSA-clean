@@ -16,10 +16,6 @@ output/
 runs/
 data/
 
-# --- Checkpoints and weights ---
-*.pt
-*.pth
-
 # --- System files ---
 .DS_Store
 Thumbs.db
