@@ -1,10 +1,7 @@
 # RiSA: Risk-aware Situational Assistant
 
-RiSA (Risk-aware Situation Assessment) is a research prototype aiming to integrate
-object detection, tracking, and risk prediction for driving assistance AI.
-RiSA is an open and reproducible research framework for interpretable safety reasoning in naturalistic driving scenarios.  
-It integrates environment perception, trajectory forecasting, and multimodal reasoning modules to assist drivers with context-aware safety advice.
-
+RiSA (Risk-aware Situation Assessment) is a research prototype that integrates object detection, tracking, and risk prediction for driving assistance AI.  
+It is an open and reproducible research framework for interpretable safety reasoning in naturalistic driving scenarios, combining environment perception, trajectory forecasting, and multimodal reasoning to assist drivers with context-aware safety advice.
 
 ## Demo
 
@@ -12,12 +9,11 @@ Below is a short demonstration of the RiSA system in action:
 
 ![RiSA Demo](assets/output_4panel_3s.gif)
 
-*(The above GIF shows the system's four-panel visualization of driving risk zones, vehicle intentions, and predicted trajectories.)*
+*(Four-panel visualization showing driving risk zones, vehicle intentions, and predicted trajectories.)*
 
 ## Evaluation Gallery
 
 https://s1280061.github.io/RiSA-clean/eval_gallery/
-
 
 ## Features
 
@@ -29,22 +25,68 @@ https://s1280061.github.io/RiSA-clean/eval_gallery/
 - **Latency Profiling**: Built-in performance measurement for each processing module
 - **Risk Assessment**: Real-time yellow-to-red zone transition detection
 
-
 ## System Architecture
-
-The overall architecture of **RiSA (Risk-aware Situational Assistant)** is illustrated below:
 
 ![RiSA Architecture](./assets/RiSA-02_architecture_v2.drawio.png)
 
-This diagram shows the multi-stage pipeline of RiSA, including:
-1. **Perception** – YOLOv8-based detection and ByteTrack tracking  
-2. **Trajectory Prediction** – GRU/Seq2Seq forecasting of future motion  
-3. **Intent Classification** – Turn and brake signal recognition  
-4. **Multimodal Reasoning** – LLaVA-based risk assessment  
+The multi-stage pipeline includes:
+1. **Perception** – YOLOv8-based detection and ByteTrack tracking
+2. **Trajectory Prediction** – GRU/Seq2Seq forecasting of future motion
+3. **Intent Classification** – Turn and brake signal recognition
+4. **Multimodal Reasoning** – LLaVA-based risk assessment
 5. **Visualization** – BEV risk-zone rendering and latency profiling
 
+---
 
-## Setup
+## 🐳 Quick Start with Docker (Recommended)
+
+Docker is the easiest way to run RiSA with a reproducible environment. No manual dependency installation required.
+
+### Prerequisites
+
+- [Docker Desktop](https://www.docker.com/products/docker-desktop/)
+- NVIDIA GPU + drivers (CPU fallback also works without additional setup)
+- For GPU support: [NVIDIA Container Toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html)
+
+### 1. Clone and build
+
+```bash
+git clone https://github.com/s1280061/RiSA-clean.git
+cd RiSA-clean
+docker compose build
+```
+
+Build time is approximately 2–3 minutes (uses `pytorch/pytorch:2.5.1-cuda12.1-cudnn9-runtime` as base).
+
+### 2. Configure data paths
+
+Edit the `volumes` section in `docker-compose.yml` to point to your data:
+
+```yaml
+volumes:
+  - /path/to/your/videos:/data        # input video/csv directory
+  - ./outputs:/app/outputs            # output results
+  - ./models:/app/models              # model weights
+```
+
+### 3. Run
+
+```bash
+docker compose run --rm risa python run_demo.py \
+  --video /data/path/to/scene_020.mp4 \
+  --csv /data/path/to/scene_020.csv \
+  --folder /app/outputs
+```
+
+### Notes
+
+- GPU support requires NVIDIA Container Toolkit. See [setup guide](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html).
+- CPU-only mode works out of the box and has been verified to process 449 frames in ~54 seconds.
+- LLaVA-based risk assessment requires a running [Ollama](https://ollama.com/) instance. Without it, the system continues processing with LLaVA warnings suppressed.
+
+---
+
+## ⚙️ Manual Setup (Alternative)
 
 ### 1. Clone the repository
 
@@ -53,7 +95,7 @@ git clone https://github.com/s1280061/RiSA-clean.git
 cd RiSA-clean
 ```
 
-### 2. Create virtual environment (recommended)
+### 2. Create virtual environment
 
 ```bash
 python -m venv venv
@@ -62,216 +104,203 @@ venv\Scripts\activate    # Windows
 ```
 
 ### 3. Install PyTorch (GPU)
+
 ```bash
 # CUDA 12.1 example
 pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121
 ```
 
-### 4. Install remaining dependencies
+### 4. Install ByteTrack
+
+ByteTrack requires a local editable install:
+
+```bash
+git clone https://github.com/ifzhang/ByteTrack.git
+# Fix setup.py encoding (Windows):
+# Open ByteTrack/setup.py and change:
+#   with open("README.md") as f:
+# to:
+#   with open("README.md", encoding="utf-8") as f:
+pip install -e ./ByteTrack
+```
+
+### 5. Install remaining dependencies
+
 ```bash
 pip install -r requirements.txt
+pip install cython-bbox lap loguru
 ```
 
-### 5. Prepare model weights
+### 6. Add source paths
 
-This repository does not include pretrained model weights due to size constraints.
+Add the following to the top of `run_demo.py`:
 
-Please prepare or download compatible checkpoints and place them in the following structure:
+```python
+import sys
+sys.path.insert(0, 'src/train')
+sys.path.insert(0, 'src/perception')
+sys.path.insert(0, 'src/utils')
+```
+
+Or set the environment variable:
+
+```bash
+export PYTHONPATH="src/train:src/perception:src/utils:$PYTHONPATH"
+```
+
+### 7. Prepare model weights
+
+Place your model checkpoints in the following structure:
+
 ```
 models/
-├── yolo/best.pt                # YOLOv8 detector
-├── traj/traj_seq2seq_best.pt  # Trajectory predictor
-├── turn/best.pt                # Turn signal classifier
-└── brake/best.pt               # Brake light classifier
+├── classify/
+│   ├── turn_best.pt     # Turn signal classifier
+│   └── brake_best.pt    # Brake light classifier
+26x/
+└── checkpoints_traj_px_best15/
+    └── best_ade_px.pt   # Trajectory predictor
 ```
 
-You may train these models using the provided scripts or substitute your own models, as long as the paths are updated accordingly in `integrated_script_natural.py`.
+Update paths in `run_demo.py` if your directory structure differs.
+
+---
+
 ## Usage
 
 ### Basic Execution
 
 ```bash
-python integrated_script_natural.py --video path/to/scene_020.mp4 --csv path/to/scene_020.csv
+python run_demo.py \
+  --video path/to/scene_020.mp4 \
+  --csv path/to/scene_020.csv \
+  --folder path/to/output/
 ```
 
 ### Parameters
 
-- `--video`: Path to input video file (e.g., `scene_020.mp4`)
-- `--csv`: Path to corresponding CSV file with frame and speed data (optional)
+| Parameter | Description |
+|-----------|-------------|
+| `--video` | Path to input video file (`.mp4`) |
+| `--csv` | Path to CSV file with frame and speed data (optional) |
+| `--folder` | Output directory for results |
 
 ### Output Files
 
-The script generates the following outputs:
+| File | Description |
+|------|-------------|
+| `scene_020_with_bev.mp4` | Annotated video with BEV and risk zones |
+| `scene_020_with_bev_traj.csv` | Vehicle trajectories and metadata |
+| `scene_020_context.json` | Full scene context per frame |
+| `scene_020_llava.json` | LLaVA risk assessment results |
+| `scene_020_latency.csv` / `.jsonl` | Per-module latency profiling |
+| `scene_020_risk_transition.csv` | Yellow-to-red zone transition events |
+| `scene_020_risk_transition_series.csv` | Frame-by-frame data during transitions |
 
-1. **Annotated Video**: `scene_020_with_bev.mp4` - Visualization with BEV and risk zones
-2. **Trajectory CSV**: `scene_020_with_bev_traj.csv` - Vehicle trajectories and metadata
-3. **Context JSON**: `scene_020_context.json` - Full scene context per frame
-4. **LLaVA Records**: `scene_020_llava.json` - Risk assessment results
-5. **Latency Logs**: `scene_020_latency.csv` and `.jsonl` - Performance profiling
-6. **Risk Transition Data**: `scene_020_risk_transition.csv` - Yellow-to-red zone events
-
-## Data Format
-
-### Input CSV Format
-
-```csv
-Frame,Speed
-0,45.2
-1,45.5
-2,45.8
-...
-```
-
-- **Frame**: Frame number (0-indexed)
-- **Speed**: Vehicle speed in mph/mps/kmh (configurable via `SPEED_COL_UNIT`)
-
-### Output Trajectory CSV
-
-Contains per-frame tracking information:
-
-| Column | Description |
-|--------|-------------|
-| `frame` | Global frame number |
-| `track_id` | Unique vehicle ID |
-| `x1, y1, x2, y2` | Bounding box coordinates |
-| `cx, cy` | Center position (pixels) |
-| `vx_px, vy_px` | Velocity (pixels/second) |
-| `mx, my` | Position in BEV coordinates (meters) |
-| `vmx, vmy` | Velocity in BEV (meters/second) |
-| `lane_idx` | Lane classification (0=left, 1=center, 2=right) |
-| `cls` | Vehicle class (if detected) |
-| `ego_speed_kmh` | Ego vehicle speed |
-| `risk_zone` | Current risk flag (LLaVA assessment) |
-| `risk_zone_predicted` | Predicted risk based on trajectory |
-
+---
 
 ## 🔧 Configuration
 
-Key parameters can be modified in the script:
+Key parameters in `run_demo.py`:
 
-### Speed Unit Conversion
 ```python
-SPEED_COL_UNIT = "mph"  # Options: "mph", "mps", "kmh"
+# Speed unit
+SPEED_COL_UNIT = "mph"       # Options: "mph", "mps", "kmh"
+
+# BEV view
+BEV_FRONT_M = 35             # Forward view distance (meters)
+BEV_RIGHT_M = 3.5            # Right lane width (meters)
+BEV_LEFT_M  = 3.5            # Left lane width (meters)
+
+# Tracking smoothing
+turn_window_frames  = 15     # Turn signal window
+brake_window_frames = 10     # Brake light window
+
+# Trajectory prediction
+H_PAST = 30                  # History frames
+H_FUT  = 45                  # Future frames to predict
 ```
 
-### BEV Parameters
-```python
-BEV_FRONT_M = 35       # Forward view distance (meters)
-BEV_RIGHT_M = 3.5      # Right lane width (meters)
-BEV_LEFT_M = 3.5       # Left lane width (meters)
-```
-
-### Tracking Parameters
-```python
-turn_window_frames = 15   # Turn signal smoothing window
-brake_window_frames = 10  # Brake light smoothing window
-ENV_REFRESH_EVERY_FRAMES = 100  # Environment recognition interval
-```
-
-### Trajectory Prediction
-```python
-H_PAST = 30   # History frames for trajectory model
-H_FUT = 45    # Future frames to predict
-```
+---
 
 ## Performance Profiling
 
-The integrated latency tracer logs execution time for each module:
+The built-in latency tracer logs execution time per module:
 
-- `yolo_detect` - Object detection
-- `byte_track` - Multi-object tracking
-- `seq2seq_pred` - Trajectory prediction
-- `turn_cls` / `brake_cls` - Intent classification
-- `stage1_env` - Environment recognition
-- `llava_assess` - Risk assessment
-- `visualization` - Frame rendering
-- `video_write` - Output encoding
+| Module | Description |
+|--------|-------------|
+| `yolo_detect` | Object detection |
+| `byte_track` | Multi-object tracking |
+| `seq2seq_pred` | Trajectory prediction |
+| `turn_cls` / `brake_cls` | Intent classification |
+| `stage1_env` | Environment recognition |
+| `llava_assess` | Risk assessment |
+| `visualization` | Frame rendering |
+| `video_write` | Output encoding |
 
-Logs include:
-- Start/end timestamps
-- Frame-aligned indices
-- GPU synchronization markers
-- Per-frame metadata
+---
 
 ## Risk Transition Analysis
 
-The system automatically detects and records yellow-to-red risk zone transitions:
+RiSA automatically detects yellow-to-red risk zone transitions:
 
-### Transition Criteria
-1. **Yellow Zone**: LLaVA detects high/very_high risk
-2. **Red Zone**: Predicted trajectory enters stopping distance + ego speed ≥ 40 km/h
+**Transition Criteria:**
+- **Yellow Zone**: LLaVA detects high/very_high risk
+- **Red Zone**: Predicted trajectory enters stopping distance AND ego speed ≥ 40 km/h
 
-### Output Files
-- `scene_020_risk_transition.csv` - Summary of each transition event
-- `scene_020_risk_transition_series.csv` - Frame-by-frame data during transitions
-- `risk_transition_summary.json` - Cross-scene aggregation
+**Output:**
+- `scene_020_risk_transition.csv` – Per-event summary
+- `scene_020_risk_transition_series.csv` – Frame-by-frame transition data
+- `risk_transition_summary.json` – Cross-scene aggregation
+
+---
 
 ## Dataset Access
 
-RiSA was developed and evaluated using the **SHRP2 Naturalistic Driving Study (NDS)** dataset.  
-This dataset contains privacy-sensitive, real-world driving videos and sensor data collected under restricted research agreements.
+RiSA was developed and evaluated using the **SHRP2 Naturalistic Driving Study (NDS)** dataset. This dataset contains privacy-sensitive real-world driving data collected under restricted research agreements and **cannot be publicly distributed**.
 
-As such, **the raw SHRP2 data cannot be publicly distributed** due to confidentiality and usage restrictions.
-
-Researchers who wish to reproduce our experiments can apply for access through the official portal:  
+Researchers may apply for access at:  
 🔗 [SHRP2 NDS Data Access Portal](https://insight.shrp2nds.us/)
 
-Once approved, the dataset can be organized following the same structure assumed by our scripts (e.g., `scene_000.mp4`, `csv_divided/scene_000.csv`).
-
-> **Note:**  
-> The provided code and pretrained models are fully operational once SHRP2 access is granted,  
-> but this repository does **not include any SHRP2-derived videos or annotations**.
-
-
-## Example Output
-
-### Console Log
+Once approved, organize data as:
 ```
-[INFO] Starting integrated processing...
-[INFO] Video file: scene_020.mp4
-[INFO] Resolution: 360x240, FPS: 30.00, Frames: 1500
-[INFO] Models loaded successfully.
-[     0/  1500]   0.1% det: 3 trk: 3 elapsed:   2.5s
-[    10/  1500]   0.7% det: 5 trk: 5 elapsed:   8.2s
-...
-[INFO] Processing time: 256.3s
-[INFO] Processed frames: 1,500
-[INFO] Process finished.
+videos/
+└── scene_000.mp4
+csv_divided/
+└── scene_000.csv
 ```
 
-### Risk Transition Summary
-```
-[INFO] Transition time stats: n=8 mean=234.5ms median=220.0ms min=180.0ms max=310.0ms
-```
+---
 
 ## Troubleshooting
 
-### CUDA Out of Memory
-- Reduce batch size or frame resolution
-- Process shorter video segments
-- Use CPU mode (set device to `"cpu"`)
+**CUDA Out of Memory**
+- Reduce frame resolution or process shorter clips
+- Set device to `"cpu"` in `run_demo.py`
 
-### Missing Model Weights
-```
-[ERROR] Turn signal model loading failed
-```
-→ Ensure all `.pt` files are in the correct directories
+**ByteTrack install fails on Windows**
+- Fix the `setup.py` encoding issue (see Manual Setup step 4 above)
+- Or copy the pre-built `yolox/` folder from an existing environment
 
-### CSV Frame Offset Issues
-```
-[WARN] Frame offset detection failed
-```
-→ Verify CSV has a `Frame` column starting from the correct index
+**Missing model weights**
+- Ensure `.pt` files exist at the paths defined in `run_demo.py`
 
+**LLaVA connection refused**
+- Start Ollama: `ollama serve` and pull the model: `ollama pull llava`
+- Or set `OLLAMA_HOST` to your Ollama server address in `docker-compose.yml`
+
+**CSV frame offset warning**
+- Verify the CSV has a `Frame` column starting from the correct index
+
+---
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the MIT License. See [LICENSE](LICENSE) for details.
+
+---
 
 ## Citation
-
-If you find our study useful, please consider citing:
-
 
 ```bibtex
 @inproceedings{asai2025risa,
@@ -283,6 +312,8 @@ If you find our study useful, please consider citing:
 }
 ```
 
+---
+
 ## Acknowledgments
 
 - **YOLOv8**: [Ultralytics](https://github.com/ultralytics/ultralytics)
@@ -290,10 +321,11 @@ If you find our study useful, please consider citing:
 - **LLaVA**: [LLaVA Model](https://github.com/haotian-liu/LLaVA)
 - **SHRP2 Dataset**: [SHRP2 NDS](https://insight.shrp2nds.us/)
 
+---
+
 ## Contact
 
-For questions or collaborations:
 - Email: asai.kaito@arakawa-lab.com
 - GitHub Issues: [Create an issue](https://github.com/s1280061/RiSA-clean/issues)
 
-**Note**: This is a research prototype. Use at your own risk in real-world applications.
+> **Note**: This is a research prototype. Use at your own risk in production environments.
